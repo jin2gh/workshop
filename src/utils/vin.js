@@ -46,7 +46,7 @@ const CODE_VALUE_MAP = {
  * 生成年产量 1000 以上的车架号
  * WMI，VDS 前5位，VIS 随机生成，导致车架号可能实际不存在
  */
-const generateVIN = function () {
+export const generateVIN = () => {
   let vin = ''
   let vcl = VIN_CODE.length
   let vin9 = ''
@@ -70,6 +70,17 @@ const generateVIN = function () {
     return total += (val * CODE_VALUE_MAP[vin[index]])
   }, 0)
   vin9 = vin9 % 11 // 取余
-  vin9 = vin9 ? vin9 : 'X'
+  vin9 = vin9 < 10 ? vin9 : 'X'
   return vin.replace('*', vin9)
+}
+
+export const batchGenVIN = total => {
+  for (let i = 0; i < total; i++) {
+    const vin = generateVIN()
+    if (vin.length < 17) {
+      console.log('error___', vin)
+    } else {
+      console.log(vin)
+    }
+  }
 }
