@@ -1,8 +1,5 @@
-const { random } = require('./utils')
+import { random } from './utils.js'
 
-/**
- * VIN 码（车辆识别码）
- */
 const VIN_CODE = '0123456789ABCDEFGHJKLMNPRSTUVWXYZ'
 const YEAR_CODE = '123456789ABCDEFGHJKLMNPRSTVXY'
 const LOCATION_WEIGHT = [8, 7, 6, 5, 4, 3, 2, 10, '*', 9, 8, 7, 6, 5, 4, 3, 2]
@@ -45,24 +42,26 @@ const CODE_VALUE_MAP = {
 /**
  * 生成年产量 1000 以上的车架号
  * WMI，VDS 前5位，VIS 随机生成，导致车架号可能实际不存在
+ * @returns {string} vin - 车架号
  */
 export const generateVIN = () => {
+  const vcl = VIN_CODE.length
   let vin = ''
-  let vcl = VIN_CODE.length
   let vin9 = ''
-  for(let i = 0; i < 8; i++) { // 生成前八位
-    vin += VIN_CODE[random(vcl)]
-  }
-  vin += '*'
-  vin += YEAR_CODE[random(YEAR_CODE.length)]
-  for(let i = 11; i < 18; i++) {
-    if (i > 12) {
+  for (let i = 0; i < 17; i++) {
+    if (i === 8) {
+      vin += '*'
+    }
+    else if (i === 9) {
+      vin += YEAR_CODE[random(YEAR_CODE.length)]
+    }
+    else if (i > 11) {
       vin += VIN_CODE[random(10)]
-    } else {
+    }
+    else {
       vin += VIN_CODE[random(vcl)]
     }
   }
-
   vin9 = LOCATION_WEIGHT.reduce((total, val, index) => {
     if (index === 8) {
       return total += 0
@@ -77,10 +76,10 @@ export const generateVIN = () => {
 export const batchGenVIN = total => {
   for (let i = 0; i < total; i++) {
     const vin = generateVIN()
-    if (vin.length < 17) {
+    if (vin.length !== 17) {
       console.log('error___', vin)
     } else {
-      console.log(vin)
+      console.log('vin_', vin)
     }
   }
 }

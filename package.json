@@ -1,0 +1,15 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JINJITING/workshop.git",
+  "author": "JINJITING <jinjiting2690@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "type": "module"
+}
