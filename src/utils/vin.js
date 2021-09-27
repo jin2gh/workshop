@@ -1,4 +1,4 @@
-import { random } from './utils.js'
+const { random } = require('./utils')
 
 const VIN_CODE = '0123456789ABCDEFGHJKLMNPRSTUVWXYZ'
 const YEAR_CODE = '123456789ABCDEFGHJKLMNPRSTVXY'
@@ -44,7 +44,7 @@ const CODE_VALUE_MAP = {
  * WMI，VDS 前5位，VIS 随机生成，导致车架号可能实际不存在
  * @returns {string} vin - 车架号
  */
-export const generateVIN = () => {
+const generateVIN = () => {
   const vcl = VIN_CODE.length
   let vin = ''
   let vin9 = ''
@@ -73,13 +73,20 @@ export const generateVIN = () => {
   return vin.replace('*', vin9)
 }
 
-export const batchGenVIN = total => {
+const batchGenVIN = total => {
   for (let i = 0; i < total; i++) {
     const vin = generateVIN()
     if (vin.length !== 17) {
       console.log('error___', vin)
     } else {
-      console.log('vin_', vin)
+      console.log(vin)
     }
   }
 }
+
+if (require.main === module) {
+  const n = Number(process.argv[2] || 1)
+  batchGenVIN(n)
+}
+
+exports.batchGenVIN = batchGenVIN
