@@ -46,42 +46,39 @@ const CODE_VALUE_MAP = {
  */
 const generateVIN = () => {
   const vcl = VIN_CODE.length
-  let vin = ''
-  let vin9 = ''
-  for (let i = 0; i < 17; i++) {
-    if (i === 8) {
-      vin += '*'
-    }
-    else if (i === 9) {
+  let vin = '*'
+  for (let i = 1; i < 9; i++) {
+    const left = VIN_CODE[random(vcl)]
+    vin = left + vin
+
+    if (i === 1) { // 年份
       vin += YEAR_CODE[random(YEAR_CODE.length)]
-    }
-    else if (i > 11) {
+    } else if (i > 3) {
       vin += VIN_CODE[random(10)]
-    }
-    else {
+    } else {
       vin += VIN_CODE[random(vcl)]
     }
   }
-  vin9 = LOCATION_WEIGHT.reduce((total, val, index) => {
-    if (index === 8) {
-      return total += 0
-    }
-    return total += (val * CODE_VALUE_MAP[vin[index]])
-  }, 0)
-  vin9 = vin9 % 11 // 取余
-  vin9 = vin9 < 10 ? vin9 : 'X'
-  return vin.replace('*', vin9)
+  let verifyVal = LOCATION_WEIGHT.reduce((total, val, index) =>
+    index === 8 ? total :  total += (val * CODE_VALUE_MAP[vin[index]]),
+    0
+  )
+  verifyVal %= 11 // 取余
+  verifyVal = verifyVal < 10 ? verifyVal : 'X'
+  return vin.replace('*', verifyVal)
 }
 
 const batchGenVIN = total => {
+  const vins = []
   for (let i = 0; i < total; i++) {
     const vin = generateVIN()
     if (vin.length !== 17) {
-      console.log('error___', vin)
+      console.log(`error__${vin}`)
     } else {
-      console.log(vin)
+      vins.push(vin)
     }
   }
+  console.log(vins)
 }
 
 if (require.main === module) {
