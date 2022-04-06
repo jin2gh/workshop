@@ -1,7 +1,12 @@
-const { random } = require('./utils')
+/**
+ * 从 0 到 range-1 范围内的随机数
+ * @param {number} range
+ * @returns {number}
+ */
+const random = range => Math.floor(Math.random(0, 1) * range)
 
 const VIN_CODE = '0123456789ABCDEFGHJKLMNPRSTUVWXYZ'
-const YEAR_CODE = '123456789ABCDEFGHJKLMNPRSTVXY'
+const YEAR_CODE = '123456789ABCDEFGHJKLMNPRSTVXY'
 const LOCATION_WEIGHT = [8, 7, 6, 5, 4, 3, 2, 10, '*', 9, 8, 7, 6, 5, 4, 3, 2]
 const CODE_VALUE_MAP = {
   '0': 0,

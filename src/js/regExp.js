@@ -1,6 +1,14 @@
 // 中国手机号正则
 const phoneReg = /^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/
 
+// 正整数
+const posiIntReg = /^[1-9]\d*$/
+
+// 最多保留两位小数的金额
+const amoutReg = /^([1-9]\d*|0)(\.[\d]{1,2})?$/
+
 module.exports = {
+  amoutReg,
   phoneReg,
+  posiIntReg,
 }
