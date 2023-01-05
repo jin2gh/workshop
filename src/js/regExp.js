@@ -5,10 +5,7 @@ const phoneReg = /^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|
 const posiIntReg = /^[1-9]\d*$/
 
 // 最多保留两位小数的金额
-const amoutReg = /^([1-9]\d*|0)(\.[\d]{1,2})?$/
+const numberWithTwoDecimalsReg = /^([1-9]\d*|0)(\.[\d]{1,2})?$/
 
-module.exports = {
-  amoutReg,
-  phoneReg,
-  posiIntReg,
-}
+// 检测 3 的倍数
+const multiplesOfThreeReg = /^[0369]*(([147][0369]*|[258][0369]*[258][0369]*)([147][0369]*[258][0369]*)*([258][0369]*|[147][0369]*[147][0369]*)|[258][0369]*[147][0369]*)*$/
